@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-onyx: #0D0D0D;
+  --color-cyber-lime: #CCFF00;
+  --color-soft-lavender: #BF94FF;
+  --color-off-white: #F2F2F2;
+
+  --radius-xl: 1.5rem;
+}
+
+@layer utilities {
+  .glass {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .glass-dark {
+    background: rgba(13, 13, 13, 0.4);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+
+  .glow-lime {
+    box-shadow: 0 0 20px rgba(204, 255, 0, 0.2);
+  }
+
+  .glow-lavender {
+    box-shadow: 0 0 20px rgba(191, 148, 255, 0.2);
+  }
+}
+
+body {
+  background-color: var(--color-onyx);
+  color: var(--color-off-white);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background-color: var(--color-cyber-lime);
+  color: var(--color-onyx);
+}
