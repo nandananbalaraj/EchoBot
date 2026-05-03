@@ -14,7 +14,8 @@ import {
   Library,
   Coffee
 } from 'lucide-react';
-import { chat, ChatMessage } from './services/geminiService';
+import { chat, ChatMessage } from './services/ollamaService';
+import SignIn from './SignIn';
 
 interface Message extends ChatMessage {
   id: string;
@@ -22,14 +23,8 @@ interface Message extends ChatMessage {
 }
 
 export default function App() {
-  const [messages, setMessages] = useState<Message[]>([
-    {
-      id: '1',
-      role: 'model',
-      content: "yo. i'm Echo. your academic strategist and vibe manager. ready to un-gatekeep some knowledge? what's the plan today? 📚✨",
-      timestamp: new Date(),
-    }
-  ]);
+  const [currentUser, setCurrentUser] = useState<string | null>(null);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isPanicMode, setIsPanicMode] = useState(false);
   const [isLofiPlaying, setIsLofiPlaying] = useState(false);
@@ -38,6 +33,18 @@ export default function App() {
   
   const scrollRef = useRef<HTMLDivElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  const handleSignIn = (username: string) => {
+    setCurrentUser(username);
+    setMessages([
+      {
+        id: '1',
+        role: 'model',
+        content: `yo ${username} 👋 i'm Echo — your academic strategist and vibe manager. ready to un-gatekeep some knowledge? what's the plan today? 📚✨`,
+        timestamp: new Date(),
+      }
+    ]);
+  };
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -83,6 +90,10 @@ export default function App() {
       setIsLofiPlaying(!isLofiPlaying);
     }
   };
+
+  if (!currentUser) {
+    return <SignIn onSignIn={handleSignIn} />;
+  }
 
   return (
     <div className="flex h-screen w-full flex-col bg-onyx text-off-white font-sans selection:bg-cyber-lime selection:text-onyx overflow-hidden">
